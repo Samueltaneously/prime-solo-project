@@ -34,6 +34,8 @@ function UserPage() {
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
       <p>Your ID is: {user.id}</p>
+      <LogOutButton className="btn" />
+
       <h2>Describe your dream:</h2>
       <form>
         <textarea type="text"
@@ -45,7 +47,6 @@ function UserPage() {
         </textarea>
         <button onClick={handleSubmit} className='btn'>Save Dream!</button>
       </form>
-      <LogOutButton className="btn" />
     </div>
   );
 }
