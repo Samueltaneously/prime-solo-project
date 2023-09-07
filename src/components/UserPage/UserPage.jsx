@@ -19,14 +19,13 @@ function UserPage() {
     console.log("inside handleSubmit")
     let newDream = {
       dream_description: dream_description,
-
     }
     console.log(`Adding newDream`, { newDream })
     dispatch({
       type: "ADD_DREAM",
       payload: newDream
     })
-    history.push('/checkoutpage')
+    history.push('/info')
   }
 
 
