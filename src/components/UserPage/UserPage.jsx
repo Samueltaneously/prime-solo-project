@@ -1,14 +1,11 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
 
-  const user = useSelector((store) => store.user);
   const [dream_description, setDream_Description] = useState('')
 
   const dispatch = useDispatch();
@@ -31,9 +28,6 @@ function UserPage() {
 
   return (
     <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" />
 
       <h2>Describe your dream:</h2>
       <form>

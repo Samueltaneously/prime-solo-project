@@ -1,15 +1,13 @@
 const express = require('express');
-const {
-    rejectUnauthenticated,
-} = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 
 router.get('/', (req, res) => {
     if (req.isAuthenticated()) {
-        const query = `SELECT * FROM dream ORDER BY "date" DESC`;
-        pool.query(query)
+        const params = req.user.id;
+        const query = `SELECT * FROM "dream" WHERE "user_id" = $1 ORDER BY "date" DESC `;
+        pool.query(query, [params])
             .then(result => {
                 res.send(result.rows);
             })
