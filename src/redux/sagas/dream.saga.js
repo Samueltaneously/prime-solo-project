@@ -19,9 +19,25 @@ function* addDreamSaga(action) {
     }
 }
 
+function* fetchDreams() {
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        };
+
+        const response = yield axios.get('/api/dream', config);
+
+        yield put({ type: 'SET_ALL_DREAMS', payload: response.data });
+    } catch (error) {
+        console.log('All dreams get request failed', error);
+    }
+}
+
 
 function* dreamSaga() {
     yield takeLatest('ADD_DREAM', addDreamSaga);
+    yield takeLatest('GET_ALL_DREAMS', fetchDreams);
 }
 
 export default dreamSaga;

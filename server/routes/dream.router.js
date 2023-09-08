@@ -3,12 +3,21 @@ const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
-const userStrategy = require('../strategies/user.strategy');
-
 const router = express.Router();
 
-router.get('/', (req, res) => {
 
+router.get('/', (req, res) => {
+    if (req.isAuthenticated()) {
+        const query = `SELECT * FROM dream ORDER BY "date" DESC`;
+        pool.query(query)
+            .then(result => {
+                res.send(result.rows);
+            })
+            .catch(err => {
+                console.log('ERROR: Get all dreams failed', err);
+                res.sendStatus(500)
+            })
+    }
 });
 
 
@@ -23,7 +32,7 @@ router.post('/', (req, res) => {
             .query(queryText, [user_id, dream_description])
             .then(() => res.sendStatus(201))
             .catch((err) => {
-                console.log('User registration failed: ', err);
+                console.log('New dream upload failed: ', err);
                 res.sendStatus(500);
             });
     }

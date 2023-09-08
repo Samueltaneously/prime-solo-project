@@ -1,15 +1,36 @@
 import React from 'react';
-
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { useState, useEffect } from 'react';
 
 function InfoPage() {
+
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const dreams = useSelector(store => store.allDreamsReducer);
+
+  useEffect(() => {
+    dispatch({ type: 'GET_ALL_DREAMS' });
+  }, []);
+
   return (
-    <div className="container">
-      <p>Info Page</p>
-    </div>
+
+    <main>
+      <h1>Dream List</h1>
+      <section className="dreams">
+        {dreams.map(dream => {
+          return (
+            <div key={dream.id} >
+              <h3>{dream.title}</h3>
+              <p>{dream.dream_description}</p>
+              <img src={dream.dream_image_url} alt={dream.title} onClick={() => history.push(`/details/${dream.id}`)} />
+            </div>
+          );
+        })}
+      </section>
+    </main>
+
   );
 }
 
