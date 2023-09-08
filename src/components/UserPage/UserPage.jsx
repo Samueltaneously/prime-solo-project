@@ -40,7 +40,7 @@ function UserPage() {
         </textarea>
         <button onClick={handleSubmit} className='btn'>Save Dream!</button>
       </form>
-    </div>
+    </div >
   );
 }
 
