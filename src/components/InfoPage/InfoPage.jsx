@@ -26,13 +26,14 @@ function InfoPage() {
 
         <h1>Dream List</h1>
 
-        Grid for
+
+        {/* Grid for displaying all dreams*/}
         <Box>
           <Grid container xs={12} spacing={3} columnGap={4} rowGap={5}>
             {dreams.map(dream => (
 
               <div className="flippable-card" key={dream.id}>
-                <div className="card">
+                <div className="dreamcard">
                   <Card className="card-front" sx={{ width: 300 }}>
                     {/* Front content */}
                     <CardMedia
@@ -75,7 +76,7 @@ function InfoPage() {
           </Grid>
         </Box>
 
-
+        {/* Profile Information Display */}
         <Box sx={{ display: 'flex' }}>
           <div>
             <Card sx={{ width: 400 }}>
@@ -88,7 +89,7 @@ function InfoPage() {
 
 
       </Box>
-    </main>
+    </main >
   );
 }
 

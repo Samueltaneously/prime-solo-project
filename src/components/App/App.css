@@ -114,14 +114,14 @@ input {
 /* --------------------------------------------------------------------------------
 Cards
 -------------------------------------------------------------------------------- */
-.card {
+.dreamcard {
   height: 100%;
   width: 100%;
   transform-style: preserve-3d;
   transition: transform 1000ms;
 }
 
-.card:hover {
+.dreamcard:hover {
   transform: rotateY(180deg);
 }
 
