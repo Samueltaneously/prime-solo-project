@@ -117,7 +117,6 @@ Cards
 .card {
   height: 100%;
   width: 100%;
-  position: relative;
   transform-style: preserve-3d;
   transition: transform 1000ms;
 }
@@ -136,11 +135,18 @@ Cards
 .card-back {
   height: 100%;
   width: 100%;
-  position: absolute;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  position: absolute;
+}
+
+.card-front {
+  height: 100%;
+  width: 100%;
 }
 
 .card-back {
+  height: 100%;
+  width: 100%;
   transform: rotateY(180deg);
 }
