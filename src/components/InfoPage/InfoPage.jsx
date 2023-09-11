@@ -1,23 +1,55 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+
+import LogOutButton from '../LogOutButton/LogOutButton';
+
+// Importing in MUI
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CardActions from '@mui/material/CardActions';
 
 function InfoPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const dreams = useSelector(store => store.allDreamsReducer);
   const user = useSelector(store => store.user);
+  const [expanded, setExpanded] = React.useState({});
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
   }, []);
+
+
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
+
+  const handleExpandClick = (id) => {
+    setExpanded(prevExpanded => ({ ...prevExpanded, [id]: !prevExpanded[id] }));
+  };
+
+
+
 
   return (
     <main>
@@ -50,10 +82,35 @@ function InfoPage() {
                         {dream.dream_description}
                       </Typography>
                     </CardContent>
+                    <CardActions disableSpacing>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                      <ExpandMore
+                        expand={expanded[dream.id]}
+                        onClick={() => handleExpandClick(dream.id)}
+                        aria-expanded={expanded[dream.id]}
+                        aria-label="show more"
+                      >
+                        <ExpandMoreIcon />
+                      </ExpandMore>
+
+                    </CardActions>
+                    <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                      <CardContent>
+                        <Typography paragraph>Method:</Typography>
+                        <Typography paragraph>
+                          {dream.dream_description}
+                        </Typography>
+                      </CardContent>
+                    </Collapse>
                   </Card>
 
                   <Card className="card-back" sx={{ width: 300 }}>
-                    {/* Back content */}
+                    {/* Front content */}
                     <CardMedia
                       sx={{ height: 256 }}
                       image={dream.dream_image_url}
@@ -68,6 +125,31 @@ function InfoPage() {
                         {dream.dream_description}
                       </Typography>
                     </CardContent>
+                    <CardActions disableSpacing>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                      <ExpandMore
+                        expand={expanded[dream.id]}
+                        onClick={() => handleExpandClick(dream.id)}
+                        aria-expanded={expanded[dream.id]}
+                        aria-label="show more"
+                      >
+                        <ExpandMoreIcon />
+                      </ExpandMore>
+
+                    </CardActions>
+                    <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                      <CardContent>
+                        <Typography paragraph>Method:</Typography>
+                        <Typography paragraph>
+                          {dream.dream_description}
+                        </Typography>
+                      </CardContent>
+                    </Collapse>
                   </Card>
                 </div>
               </div>

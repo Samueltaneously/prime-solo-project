@@ -126,7 +126,7 @@ Cards
 }
 
 .flippable-card {
-  height: 356px;
+  height: 600px;
   width: 300px;
   perspective: 1000px;
 }
