@@ -47,27 +47,55 @@ function InfoPage() {
             rowGap={5}>
             {dreams.map((dream) =>
 
-              <Card sx={{ width: 300 }} key={dream.id}>
+              <div className="flippable-card">
 
-                <CardMedia
-                  sx={{ height: 200 }}
-                  image={dream.dream_image_url}
-                  title={dream.title}
-                  onClick={() => history.push(`/details/${dream.id}`)}
-                />
+                <div className="card">
+                  <Card className="card-front" sx={{ width: 300, position: 'relative' }} key={dream.id}>
 
-                <CardContent sx={{ height: 200 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {dream.title}
-                  </Typography>
+                    <CardMedia
+                      sx={{ height: 256 }}
+                      image={dream.dream_image_url}
+                      title={dream.title}
+                      onClick={() => history.push(`/details/${dream.id}`)}
+                    />
 
-                  <Typography variant="body2" color="text.secondary">
-                    {dream.dream_description}
-                  </Typography>
-                </CardContent>
+                    <CardContent sx={{ height: 100 }}>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {dream.title}
+                      </Typography>
 
-              </Card>
+                      <Typography variant="body2" color="text.secondary">
+                        {dream.dream_description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </div>
 
+                <div className="card">
+                  <Card className="card-back" sx={{ width: 300, position: 'relative' }} key={dream.id}>
+
+                    <CardMedia
+                      sx={{ height: 256 }}
+                      image={dream.dream_image_url}
+                      title={dream.title}
+                      onClick={() => history.push(`/details/${dream.id}`)}
+                    />
+
+                    <CardContent sx={{ height: 100 }}>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {dream.title}
+                      </Typography>
+
+                      <Typography variant="body2" color="text.secondary">
+                        {dream.dream_description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </div>
+
+
+
+              </div>
             )}
           </Grid>
         </Box>

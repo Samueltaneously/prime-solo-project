@@ -110,3 +110,37 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+/* --------------------------------------------------------------------------------
+Cards
+-------------------------------------------------------------------------------- */
+.card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1000ms;
+}
+
+.card:hover {
+  transform: rotateY(180deg);
+}
+
+.flippable-card {
+  height: 356px;
+  width: 300px;
+  perspective: 1000px;
+}
+
+.card-front,
+.card-back {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
