@@ -17,7 +17,6 @@ import Collapse from '@mui/material/Collapse';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CardActions from '@mui/material/CardActions';
 
 function InfoPage() {
@@ -26,6 +25,7 @@ function InfoPage() {
   const dreams = useSelector(store => store.allDreamsReducer);
   const user = useSelector(store => store.user);
   const [expanded, setExpanded] = useState({});
+  const [flipped, setFlipped] = useState({});
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
@@ -48,6 +48,11 @@ function InfoPage() {
     setExpanded(prevExpanded => ({ ...prevExpanded, [id]: !prevExpanded[id] }));
   };
 
+  const handleTransform = (id) => {
+    setFlipped(prevFlipped => ({ ...prevFlipped, [id]: !prevFlipped[id] }));
+
+  }
+
 
 
 
@@ -65,7 +70,9 @@ function InfoPage() {
             {dreams.map(dream => (
 
               <div className="flippable-card" key={dream.id}>
-                <div className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}>
+                <div className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
+                  onClick={() => { handleTransform(dream.id) }}
+                  style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
                   {/* Front of card */}
                   <Card className="card-front" sx={{ width: 300 }}>

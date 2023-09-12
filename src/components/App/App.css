@@ -126,27 +126,15 @@ Cards
   max-height: 700px;
 }
 
-.dreamcard:hover {
+/* .dreamcard:hover {
   transform: rotateY(180deg);
-}
+} */
 
 .flippable-card {
   height: 500px;
   width: 300px;
   perspective: 1000px;
 }
-
-/* .flippable-card-collapsed {
-  max-height: 400px;
-  width: 300px;
-  perspective: 1000px;
-} */
-
-/* .flippable-card-expanded {
-  max-height: 600px;
-  width: 300px;
-  perspective: 1000px;
-} */
 
 .card-front,
 .card-back {
