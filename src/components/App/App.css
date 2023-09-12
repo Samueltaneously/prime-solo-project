@@ -119,6 +119,11 @@ Cards
   width: 100%;
   transform-style: preserve-3d;
   transition: transform 1000ms;
+  max-height: 400px;
+}
+
+.dreamcard.expanded {
+  max-height: 700px;
 }
 
 .dreamcard:hover {
@@ -131,17 +136,17 @@ Cards
   perspective: 1000px;
 }
 
-.flippable-card-collapsed {
+/* .flippable-card-collapsed {
   max-height: 400px;
   width: 300px;
   perspective: 1000px;
-}
+} */
 
-.flippable-card-expanded {
+/* .flippable-card-expanded {
   max-height: 600px;
   width: 300px;
   perspective: 1000px;
-}
+} */
 
 .card-front,
 .card-back {

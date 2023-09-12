@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
@@ -25,7 +25,7 @@ function InfoPage() {
   const history = useHistory();
   const dreams = useSelector(store => store.allDreamsReducer);
   const user = useSelector(store => store.user);
-  const [expanded, setExpanded] = React.useState({});
+  const [expanded, setExpanded] = useState({});
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
@@ -65,9 +65,10 @@ function InfoPage() {
             {dreams.map(dream => (
 
               <div className="flippable-card" key={dream.id}>
-                <div className="dreamcard">
+                <div className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}>
+
+                  {/* Front of card */}
                   <Card className="card-front" sx={{ width: 300 }}>
-                    {/* Front content */}
                     <CardMedia
                       sx={{ height: 256 }}
                       image={dream.dream_image_url}
@@ -106,8 +107,8 @@ function InfoPage() {
                     </Collapse>
                   </Card>
 
+                  {/* Back of card */}
                   <Card className="card-back" sx={{ width: 300 }}>
-                    {/* Front content */}
                     <CardMedia
                       sx={{ height: 256 }}
                       image={dream.dream_image_url}
