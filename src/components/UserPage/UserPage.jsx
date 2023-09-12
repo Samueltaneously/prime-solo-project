@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
+import MaterialUISwitch from './MuiSwitch';
+
 
 
 
@@ -33,8 +35,9 @@ function UserPage() {
   }
 
   const buttonStyle = {
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
     color: 'white',
+    textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
     '&:hover': {
       backgroundColor: 'darkgray',
     }
@@ -42,7 +45,7 @@ function UserPage() {
 
 
   return (
-    <Box>
+    <Box className='userBackground'>
 
       <Grid container
         rowGap={5}
@@ -54,7 +57,7 @@ function UserPage() {
 
         <Grid>
 
-          <Box>
+          <Box style={buttonStyle}>
             <h2>Describe your dream:</h2>
           </Box>
 
@@ -71,7 +74,14 @@ function UserPage() {
             </form>
           </Box>
 
-          <Button onClick={handleSubmit} style={buttonStyle}>Save Dream!</Button>
+          <span style={buttonStyle}>
+            <span>Dream</span>
+            <MaterialUISwitch />
+            <span>Nightmare</span>
+          </span>
+
+          <Button onClick={handleSubmit} style={buttonStyle} sx={{ marginLeft: '20%', backgroundColor: 'black', border: '1px white solid' }} > Save Dream</Button>
+
 
         </Grid>
 
