@@ -74,12 +74,9 @@ function InfoPage() {
                       title={dream.title}
                       onClick={() => history.push(`/details/${dream.id}`)}
                     />
-                    <CardContent sx={{ height: 100 }}>
+                    <CardContent sx={{ height: 25 }}>
                       <Typography gutterBottom variant="h5" component="div">
                         {dream.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {dream.dream_description}
                       </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -101,7 +98,7 @@ function InfoPage() {
                     </CardActions>
                     <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
                       <CardContent>
-                        <Typography paragraph>Method:</Typography>
+                        <Typography paragraph>{dream.date}</Typography>
                         <Typography paragraph>
                           {dream.dream_description}
                         </Typography>
@@ -117,12 +114,9 @@ function InfoPage() {
                       title={dream.title}
                       onClick={() => history.push(`/details/${dream.id}`)}
                     />
-                    <CardContent sx={{ height: 100 }}>
+                    <CardContent sx={{ height: 25 }}>
                       <Typography gutterBottom variant="h5" component="div">
                         {dream.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {dream.dream_description}
                       </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -144,7 +138,7 @@ function InfoPage() {
                     </CardActions>
                     <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
                       <CardContent>
-                        <Typography paragraph>Method:</Typography>
+                        <Typography paragraph>{dream.date}</Typography>
                         <Typography paragraph>
                           {dream.dream_description}
                         </Typography>
@@ -157,6 +151,7 @@ function InfoPage() {
             ))}
           </Grid>
         </Box>
+
 
         {/* Profile Information Display */}
         <Box sx={{ display: 'flex' }}>
