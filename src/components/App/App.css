@@ -121,20 +121,16 @@ Cards
   width: 100%;
   transform-style: preserve-3d;
   transition: transform 1000ms;
-  max-height: 400px;
+  max-height: 450px;
 }
 
 .dreamcard.expanded {
-  max-height: 700px;
+  max-height: 900px;
 }
-
-/* .dreamcard:hover {
-  transform: rotateY(180deg);
-} */
 
 .flippable-card {
   height: 500px;
-  width: 300px;
+  width: 400px;
   perspective: 1000px;
 }
 

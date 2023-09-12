@@ -75,14 +75,14 @@ function InfoPage() {
                   style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
                   {/* Front of card */}
-                  <Card className="card-front" sx={{ width: 300 }}>
+                  <Card className="card-front" sx={{ width: 400 }}>
                     <CardMedia
                       sx={{ height: 256 }}
                       image={dream.dream_image_url}
                       title={dream.title}
                       onClick={() => history.push(`/details/${dream.id}`)}
                     />
-                    <CardContent sx={{ height: 25 }}>
+                    <CardContent >
                       <Typography gutterBottom variant="h5" component="div">
                         {dream.title}
                       </Typography>
@@ -115,14 +115,14 @@ function InfoPage() {
                   </Card>
 
                   {/* Back of card */}
-                  <Card className="card-back" sx={{ width: 300 }}>
+                  <Card className="card-back" sx={{ width: 400 }}>
                     <CardMedia
                       sx={{ height: 256 }}
                       image={dream.dream_image_url}
                       title={dream.title}
                       onClick={() => history.push(`/details/${dream.id}`)}
                     />
-                    <CardContent sx={{ height: 25 }}>
+                    <CardContent >
                       <Typography gutterBottom variant="h5" component="div">
                         {dream.title}
                       </Typography>
