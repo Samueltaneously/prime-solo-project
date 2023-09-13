@@ -7,7 +7,20 @@ body,
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-  background: url('../../assets/peaceful forrest.gif') no-repeat center center fixed;
+}
+
+.good-background {
+  background-image: url('../../assets/peacefulforrest.gif');
+  background-size: cover;
+}
+
+.nightmare-background {
+  background-image: url('../../assets/horrorhouse.gif');
+  background-size: cover;
+}
+
+.default-background {
+  background-image: url('../../assets/dream.gif');
   background-size: cover;
 }
 
