@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 
 // Importing in MUI
@@ -16,23 +15,34 @@ import MaterialUISwitch from './MuiSwitch';
 function UserPage() {
 
   const [dream_description, setDream_Description] = useState('')
+  const [isNightmare, setIsNightmare] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log("inside handleSubmit")
     let newDream = {
       dream_description: dream_description,
+      isNightmare: isNightmare,
     }
-    console.log(`Adding newDream`, { newDream })
     dispatch({
       type: "ADD_DREAM",
       payload: newDream
     })
     history.push('/info')
   }
+
+  // Define background styles based on switch state
+  const userBackgroundStyle = {
+    backgroundImage: isNightmare
+      ? 'url("nightmare-background.jpg")' // nightmare background
+      : 'url("default-background.jpg")', // default background
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
+  };
 
   const buttonStyle = {
     // backgroundColor: 'black',
@@ -45,7 +55,7 @@ function UserPage() {
 
 
   return (
-    <Box className='userBackground'>
+    <Box style={userBackgroundStyle}>
 
       <Grid container
         rowGap={5}
@@ -76,11 +86,17 @@ function UserPage() {
 
           <span style={buttonStyle}>
             <span>Dream</span>
-            <MaterialUISwitch />
+            <MaterialUISwitch
+              checked={isNightmare}
+              onChange={() => setIsNightmare(!isNightmare)} // switch state toggles dream background
+            />
             <span>Nightmare</span>
           </span>
 
-          <Button onClick={handleSubmit} style={buttonStyle} sx={{ marginLeft: '20%', backgroundColor: 'black', border: '1px white solid' }} > Save Dream</Button>
+          <Button
+            onClick={handleSubmit}
+            style={buttonStyle}
+            sx={{ marginLeft: '20%', backgroundColor: 'black', border: '1px white solid' }} > Save Dream</Button>
 
 
         </Grid>
