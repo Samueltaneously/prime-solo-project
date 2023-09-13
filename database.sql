@@ -16,7 +16,8 @@ CREATE TABLE "dream" (
   "user_id" INTEGER NOT NULL,
   "dream_description" TEXT NOT NULL,
   "dream_interpretation" TEXT,
-  "date" DATE NOT NULL,
+  "dream_title" VARCHAR,
+  "date" DATE,
   "dream_image_url" TEXT,
   FOREIGN KEY ("user_id") REFERENCES "user" ("id")
 );
