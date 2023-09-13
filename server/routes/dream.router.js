@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
+// GET ALL Dreams
 router.get('/', (req, res) => {
 
     if (req.isAuthenticated()) {
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     }
 });
 
-
+// POST dream from UserPage
 router.post('/', (req, res) => {
 
     if (req.isAuthenticated()) {
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
     }
 });
 
-
+// DELETE single dream
 router.delete('/', (req, res) => {
 
     if (req.isAuthenticated()) {
@@ -52,7 +52,7 @@ router.delete('/', (req, res) => {
     }
 });
 
-
+// UPDATE single dream
 router.put('/', (req, res) => {
 
     if (req.isAuthenticated()) {
