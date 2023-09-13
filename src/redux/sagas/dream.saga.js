@@ -34,10 +34,26 @@ function* fetchDreams() {
     }
 }
 
+function* deleteDream(action) {
+    console.log('payload for delete:', action.payload);
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        };
+
+        yield axios.delete(`/api/dream/${action.payload}`, config);
+
+    } catch (error) {
+        console.log(' Dreams delete request failed', error);
+    }
+}
+
 
 function* dreamSaga() {
     yield takeLatest('ADD_DREAM', addDreamSaga);
     yield takeLatest('GET_ALL_DREAMS', fetchDreams);
+    yield takeLatest('DELETE_DREAM', deleteDream);
 }
 
 export default dreamSaga;

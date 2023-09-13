@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
+import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -46,11 +47,19 @@ function InfoPage() {
 
   const handleExpandClick = (id) => {
     setExpanded(prevExpanded => ({ ...prevExpanded, [id]: !prevExpanded[id] }));
+    // setExpanded({ [id]: true }); // Expand the clicked card
+
   };
 
   const handleTransform = (id) => {
     setFlipped(prevFlipped => ({ ...prevFlipped, [id]: !prevFlipped[id] }));
 
+  }
+
+  const handleDelete = (id) => {
+    dispatch({
+      type: 'DELETE_DREAM', payload: id
+    })
   }
 
 
@@ -98,6 +107,10 @@ function InfoPage() {
                     <IconButton aria-label="share">
                       <ShareIcon />
                     </IconButton>
+                    <IconButton onClick={() => { handleDelete(dream.id) }}>
+                      <DeleteIcon />
+                    </IconButton>
+
                     <ExpandMore
                       expand={expanded[dream.id]}
                       onClick={() => handleExpandClick(dream.id)}

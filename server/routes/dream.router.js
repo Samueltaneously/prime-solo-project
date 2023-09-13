@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
 });
 
 // DELETE single dream
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
 
     if (req.isAuthenticated()) {
         pool
