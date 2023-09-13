@@ -69,91 +69,90 @@ function InfoPage() {
           <Grid container xs={12} spacing={3} columnGap={4} rowGap={5}>
             {dreams.map(dream => (
 
-              <div className="flippable-card" key={dream.id}>
-                <div className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
-                  onClick={() => { handleTransform(dream.id) }}
-                  style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
-                  {/* Front of card */}
-                  <Card className="card-front" sx={{ width: 400 }}>
-                    <CardMedia
-                      sx={{ height: 256 }}
-                      image={dream.dream_image_url}
-                      title={dream.title}
-                      onClick={() => history.push(`/details/${dream.id}`)}
-                    />
-                    <CardContent >
-                      <Typography gutterBottom variant="h5" component="div">
-                        {dream.title}
+              <div key={dream.id} className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
+                onClick={() => { handleTransform(dream.id) }}
+                style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
+
+                {/* Front of card */}
+                <Card className="card-front" sx={{ width: 400 }}>
+                  <CardMedia
+                    sx={{ height: 256 }}
+                    image={dream.dream_image_url}
+                    title={dream.title}
+                    onClick={() => history.push(`/details/${dream.id}`)}
+                  />
+                  <CardContent >
+                    <Typography gutterBottom variant="h5" component="div">
+                      Title Placeholder Text{dream.title}
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                    <ExpandMore
+                      expand={expanded[dream.id]}
+                      onClick={() => handleExpandClick(dream.id)}
+                      aria-expanded={expanded[dream.id]}
+                      aria-label="show more"
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
+
+                  </CardActions>
+                  <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>{dream.date}</Typography>
+                      <Typography paragraph>
+                        {dream.dream_description}
                       </Typography>
                     </CardContent>
-                    <CardActions disableSpacing>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ShareIcon />
-                      </IconButton>
-                      <ExpandMore
-                        expand={expanded[dream.id]}
-                        onClick={() => handleExpandClick(dream.id)}
-                        aria-expanded={expanded[dream.id]}
-                        aria-label="show more"
-                      >
-                        <ExpandMoreIcon />
-                      </ExpandMore>
+                  </Collapse>
+                </Card>
 
-                    </CardActions>
-                    <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
-                      <CardContent>
-                        <Typography paragraph>{dream.date}</Typography>
-                        <Typography paragraph>
-                          {dream.dream_description}
-                        </Typography>
-                      </CardContent>
-                    </Collapse>
-                  </Card>
+                {/* Back of card */}
+                <Card className="card-back" sx={{ width: 400 }}>
+                  <CardMedia
+                    sx={{ height: 256 }}
+                    image={dream.dream_image_url}
+                    title={dream.title}
+                    onClick={() => history.push(`/details/${dream.id}`)}
+                  />
+                  <CardContent >
+                    <Typography gutterBottom variant="h5" component="div">
+                      Title Placeholder Text{dream.title}
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                    <ExpandMore
+                      expand={expanded[dream.id]}
+                      onClick={() => handleExpandClick(dream.id)}
+                      aria-expanded={expanded[dream.id]}
+                      aria-label="show more"
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
 
-                  {/* Back of card */}
-                  <Card className="card-back" sx={{ width: 400 }}>
-                    <CardMedia
-                      sx={{ height: 256 }}
-                      image={dream.dream_image_url}
-                      title={dream.title}
-                      onClick={() => history.push(`/details/${dream.id}`)}
-                    />
-                    <CardContent >
-                      <Typography gutterBottom variant="h5" component="div">
-                        {dream.title}
+                  </CardActions>
+                  <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>{dream.date}</Typography>
+                      <Typography paragraph>
+                        {dream.dream_description}
                       </Typography>
                     </CardContent>
-                    <CardActions disableSpacing>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ShareIcon />
-                      </IconButton>
-                      <ExpandMore
-                        expand={expanded[dream.id]}
-                        onClick={() => handleExpandClick(dream.id)}
-                        aria-expanded={expanded[dream.id]}
-                        aria-label="show more"
-                      >
-                        <ExpandMoreIcon />
-                      </ExpandMore>
-
-                    </CardActions>
-                    <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
-                      <CardContent>
-                        <Typography paragraph>{dream.date}</Typography>
-                        <Typography paragraph>
-                          {dream.dream_description}
-                        </Typography>
-                      </CardContent>
-                    </Collapse>
-                  </Card>
-                </div>
+                  </Collapse>
+                </Card>
               </div>
 
             ))}
