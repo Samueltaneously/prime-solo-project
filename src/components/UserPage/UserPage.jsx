@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
 // Importing in MUI
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
+// import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
-import MaterialUISwitch from './MuiSwitch';
+// import MaterialUISwitch from './MuiSwitch';
 import { Radio, RadioGroup, FormControlLabel } from '@mui/material';
 
 
@@ -17,7 +17,6 @@ function UserPage() {
 
   const [dream_description, setDream_Description] = useState('')
   const [dreamType, setDreamType] = useState('default');
-  const [backgroundImage, setBackgroundImage] = useState('default-background');
   // const [isNightmare, setIsNightmare] = useState(false);
 
   const dispatch = useDispatch();

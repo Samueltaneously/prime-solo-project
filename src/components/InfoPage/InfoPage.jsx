@@ -65,8 +65,12 @@ function InfoPage() {
 
 
         {/* Grid for displaying all dreams*/}
-        <Box>
-          <Grid container xs={12} spacing={3} columnGap={4} rowGap={5}>
+        <Box className="scroll-container" sx={{ height: '1000px', overflowY: 'auto' }}>
+          <Grid container
+            xs={12}
+            spacing={3}
+            columnGap={4}
+            rowGap={5}>
             {dreams.map(dream => (
 
 
@@ -84,7 +88,7 @@ function InfoPage() {
                   />
                   <CardContent >
                     <Typography gutterBottom variant="h5" component="div">
-                      Title Placeholder Text{dream.title}
+                      {dream.title}
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
@@ -116,15 +120,16 @@ function InfoPage() {
 
                 {/* Back of card */}
                 <Card className="card-back" sx={{ width: 400 }}>
-                  <CardMedia
-                    sx={{ height: 256 }}
-                    image={dream.dream_image_url}
-                    title={dream.title}
-                    onClick={() => history.push(`/details/${dream.id}`)}
-                  />
+                  <Card>
+                    <CardContent>
+                      <Typography paragraph>
+                        {dream.dream_interpretation}
+                      </Typography>
+                    </CardContent>
+                  </Card>
                   <CardContent >
                     <Typography gutterBottom variant="h5" component="div">
-                      Title Placeholder Text{dream.title}
+                      {dream.title}
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>

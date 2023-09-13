@@ -37,6 +37,26 @@ Container
   padding: 20px;
 }
 
+/* Hide the scrollbar for Webkit-based browsers (e.g., Chrome) */
+.scroll-container::-webkit-scrollbar {
+  width: 0.5em;
+  /* Set the width of the scrollbar to zero */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  /* Hide the scrollbar thumb */
+}
+
+/* Hide the scrollbar for Firefox */
+.scroll-container {
+  scrollbar-width: thin;
+  /* Firefox supports this property */
+  scrollbar-color: transparent transparent;
+  /* Hide the scrollbar thumb and track */
+}
+
+
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */
