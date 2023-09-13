@@ -83,12 +83,12 @@ function InfoPage() {
                   <CardMedia
                     sx={{ height: 256 }}
                     image={dream.dream_image_url}
-                    title={dream.title}
+                    title={dream.dream_title}
                     onClick={() => history.push(`/details/${dream.id}`)}
                   />
                   <CardContent >
                     <Typography gutterBottom variant="h5" component="div">
-                      {dream.title}
+                      {dream.dream_title}
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
@@ -129,7 +129,7 @@ function InfoPage() {
                   </Card>
                   <CardContent >
                     <Typography gutterBottom variant="h5" component="div">
-                      {dream.title}
+                      {dream.dream_title}
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>

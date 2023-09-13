@@ -68,3 +68,8 @@ typings/
 package-lock.json
 
 # Temp Ignore
+
+
+#_________Outdated / Phased Out___________
+#Using MUI Radio Buttons instead now
+MuiSwitch.jsx

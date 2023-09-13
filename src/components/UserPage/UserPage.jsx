@@ -132,7 +132,7 @@ function UserPage() {
             <FormControlLabel
               value="default"
               control={<Radio style={{ color: 'grey' }} />}
-              label="Normal"
+              label="Neutral"
             />
             <FormControlLabel
               value="nightmare"
