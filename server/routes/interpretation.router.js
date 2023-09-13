@@ -23,7 +23,14 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
     // const { messages } = await
     axios({
-        url: `https://api.openai.com/v1/chat/completions`
+        url: `https://api.openai.com/v1/chat/completions`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': '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'
+        }, data: {
+            "model": "gpt-3.5-turbo",
+            "messages": [{ "role": "user", "content": "Say thid is a test!" }]
+        }
     }).then((response) => {
         console.log("this is the response data from post server side:", response.data);
         res.send(response.data);
