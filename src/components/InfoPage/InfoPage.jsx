@@ -27,6 +27,7 @@ function InfoPage() {
   const user = useSelector(store => store.user);
   const [expanded, setExpanded] = useState({});
   const [flipped, setFlipped] = useState({});
+  const [cardContent, setCardContent] = useState({});
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
@@ -46,24 +47,38 @@ function InfoPage() {
 
 
   const handleExpandClick = (id) => {
-    setExpanded(prevExpanded => ({ ...prevExpanded, [id]: !prevExpanded[id] }));
+    // setExpanded(prevExpanded => ({ ...prevExpanded, [id]: !prevExpanded[id] }));
     // setExpanded({ [id]: true }); // Expand the clicked card
+
+    // Allows only one card to be expanded at once, to fix bug of removed cards from DOM
+    // when whole row is expanded
+    setExpanded((prevExpanded) => {
+      const newExpanded = {};
+      for (const cardId in prevExpanded) {
+        newExpanded[cardId] = false;
+      }
+      newExpanded[id] = !prevExpanded[id];
+      return newExpanded;
+    });
 
   };
 
   const handleTransform = (id) => {
+    // Commented out flips as many cards as desired
     // setFlipped(prevFlipped => ({ ...prevFlipped, [id]: !prevFlipped[id] }));
+
+    // Current code allows only one card to be flipped
     setFlipped((prevFlipped) => {
       const newFlipped = { ...prevFlipped };
 
-      // If the clicked card is not flipped, flip it and unflip all others
+      // If card is not flipped, it flips and unflips all others
       if (!newFlipped[id]) {
         for (const cardId in newFlipped) {
           newFlipped[cardId] = false;
         }
         newFlipped[id] = true;
       } else {
-        // If the clicked card is already flipped, unflip it
+        // If the clicked card is already flipped, it gets unflipped
         newFlipped[id] = false;
       }
 
@@ -128,7 +143,12 @@ function InfoPage() {
 
                     <ExpandMore
                       expand={expanded[dream.id]}
-                      onClick={() => handleExpandClick(dream.id)}
+                      onClick={() => {
+                        handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
+                          ...prevCardContent,
+                          [dream.id]: dream.dream_description,
+                        }));
+                      }}
                       aria-expanded={expanded[dream.id]}
                       aria-label="show more"
                     >
@@ -169,7 +189,12 @@ function InfoPage() {
                     </IconButton>
                     <ExpandMore
                       expand={expanded[dream.id]}
-                      onClick={() => handleExpandClick(dream.id)}
+                      onClick={() => {
+                        handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
+                          ...prevCardContent,
+                          [dream.id]: dream.dream_description,
+                        }));
+                      }}
                       aria-expanded={expanded[dream.id]}
                       aria-label="show more"
                     >
