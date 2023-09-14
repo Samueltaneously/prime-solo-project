@@ -26,13 +26,13 @@ router.post('/', async (req, res) => {
         url: `https://api.openai.com/v1/chat/completions`,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': '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'
+            'Authorization': `${process.env.OPENAI_API_KEY}`
         }, data: {
             "model": "gpt-3.5-turbo",
             "messages": [{ "role": "user", "content": "Say thid is a test!" }]
         }
     }).then((response) => {
-        console.log("this is the response data from post server side:", response.data);
+        console.log("response data from dream description post:", response.data);
         res.send(response.data);
     }).catch((error) => {
         console.log('POST to chatGPT fail:', error);

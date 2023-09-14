@@ -37,6 +37,10 @@ function UserPage() {
       type: "ADD_DREAM",
       payload: newDream
     })
+    dispatch({
+      type: 'SEND_FOR_INTERPRETATION',
+      payload: dream_description
+    })
     history.push('/info')
   }
 
