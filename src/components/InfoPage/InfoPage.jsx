@@ -52,8 +52,23 @@ function InfoPage() {
   };
 
   const handleTransform = (id) => {
-    setFlipped(prevFlipped => ({ ...prevFlipped, [id]: !prevFlipped[id] }));
+    // setFlipped(prevFlipped => ({ ...prevFlipped, [id]: !prevFlipped[id] }));
+    setFlipped((prevFlipped) => {
+      const newFlipped = { ...prevFlipped };
 
+      // If the clicked card is not flipped, flip it and unflip all others
+      if (!newFlipped[id]) {
+        for (const cardId in newFlipped) {
+          newFlipped[cardId] = false;
+        }
+        newFlipped[id] = true;
+      } else {
+        // If the clicked card is already flipped, unflip it
+        newFlipped[id] = false;
+      }
+
+      return newFlipped;
+    });
   }
 
   const handleDelete = (id) => {
