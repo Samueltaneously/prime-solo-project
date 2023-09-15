@@ -53,12 +53,12 @@ router.delete('/:id', (req, res) => {
 });
 
 // UPDATE single dream
-router.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
 
     if (req.isAuthenticated()) {
 
         let idToUpdate = req.params.id
-        let NEWdream_description = req.body.dream_description
+        let NEWdream_description = req.body.newDescription
         let sqlValues = [NEWdream_description, idToUpdate]
 
         let sqlQuery = `

@@ -103,7 +103,7 @@ function UserPage() {
                 name="Dream_Description"
                 placeholder='Enter dream description here...'
                 className="form-control"
-                style={{ height: '20em', width: '30em' }}
+                style={{ height: '20rem', width: '30rem' }}
                 value={dream_description}
                 onChange={(event) => setDream_Description(event.target.value)}>
               </textarea>

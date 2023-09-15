@@ -19,6 +19,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardActions from '@mui/material/CardActions';
+import { Button } from '@mui/material';
 
 function InfoPage() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function InfoPage() {
   const [expanded, setExpanded] = useState({});
   const [flipped, setFlipped] = useState({});
   const [cardContent, setCardContent] = useState({});
+  const [editableDescriptions, setEditableDescriptions] = useState({});
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
@@ -86,12 +88,44 @@ function InfoPage() {
     });
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = (dreamID) => {
     dispatch({
-      type: 'DELETE_DREAM', payload: id
+      type: 'DELETE_DREAM', payload: dreamID
     })
   }
 
+  const editDreamDescription = (dreamId, newDescription) => ({
+    type: 'EDIT_DREAM_DESCRIPTION',
+    payload: { dreamId, newDescription },
+  });
+
+  const handleEditDescription = (dreamID) => {
+    // Toggle edit mode for the description
+    setEditableDescriptions(prevEditableDescriptions => ({
+      ...prevEditableDescriptions,
+      [dreamID]: !prevEditableDescriptions[dreamID],
+    }));
+  };
+
+  const handleDescriptionChange = (dreamID, event) => {
+    // Update description in the state when the input field changes
+    setCardContent(prevCardContent => ({
+      ...prevCardContent,
+      [dreamID]: event.target.value,
+    }));
+
+  };
+
+  const handleSaveDescription = (id) => {
+    // Dispatch the action to update the dream description
+    dispatch(editDreamDescription(id, cardContent[id]));
+
+    // Toggle off the edit mode
+    setEditableDescriptions(prevEditableDescriptions => ({
+      ...prevEditableDescriptions,
+      [id]: false,
+    }));
+  };
 
 
 
@@ -114,11 +148,11 @@ function InfoPage() {
 
 
               <div key={dream.id} className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
-                onClick={() => { handleTransform(dream.id) }}
+
                 style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
                 {/* Front of card */}
-                <Card className="card-front" sx={{ width: 400 }}>
+                <Card className="card-front" sx={{ backgroundColor: '#424242fa', color: 'whitesmoke', boxShadow: '2px 2px 10px white' }}>
                   <CardMedia
                     sx={{ height: 256 }}
                     image={dream.dream_image_url}
@@ -126,7 +160,8 @@ function InfoPage() {
                     onClick={() => history.push(`/details/${dream.id}`)}
                   />
                   <CardContent >
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div"
+                      onClick={() => { handleTransform(dream.id) }}>
                       {dream.dream_title}
                     </Typography>
                   </CardContent>
@@ -167,7 +202,7 @@ function InfoPage() {
                 </Card>
 
                 {/* Back of card */}
-                <Card className="card-back" sx={{ width: 400 }}>
+                <Card className="card-back" >
                   <Card>
                     <CardContent>
                       <Typography paragraph>
@@ -176,7 +211,8 @@ function InfoPage() {
                     </CardContent>
                   </Card>
                   <CardContent >
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div"
+                      onClick={() => { handleTransform(dream.id) }}>
                       {dream.dream_title}
                     </Typography>
                   </CardContent>
@@ -204,10 +240,20 @@ function InfoPage() {
                   </CardActions>
                   <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
                     <CardContent>
-                      <Typography paragraph>{dream.date}</Typography>
-                      <Typography paragraph>
-                        {dream.dream_description}
-                      </Typography>
+                      {editableDescriptions[dream.id] ? (
+                        <textarea
+                          value={cardContent[dream.id] || ''}
+                          onChange={(e) => handleDescriptionChange(dream.id, e)}
+                        />
+                      ) : (
+                        <Typography paragraph>{dream.dream_description}</Typography>
+                      )}
+                      {editableDescriptions[dream.id] && (
+                        <Button onClick={() => handleSaveDescription(dream.id)}>Save Description</Button>
+                      )}
+                      {!editableDescriptions[dream.id] && (
+                        <Button onClick={() => handleEditDescription(dream.id)}>Edit Description</Button>
+                      )}
                     </CardContent>
                   </Collapse>
                 </Card>

@@ -49,11 +49,27 @@ function* deleteDream(action) {
     }
 }
 
+function* editDream(action) {
+    console.log('payload for edit:', action.payload);
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        };
+
+        yield axios.put(`/api/dream/${action.payload.dreamID}`, action.payload, config);
+
+    } catch (error) {
+        console.log(' Dreams edit request failed', error);
+    }
+}
+
 
 function* dreamSaga() {
     yield takeLatest('ADD_DREAM', addDreamSaga);
     yield takeLatest('GET_ALL_DREAMS', fetchDreams);
     yield takeLatest('DELETE_DREAM', deleteDream);
+    yield takeLatest('EDIT_DREAM_DESCRIPTION', editDream);
 }
 
 export default dreamSaga;
