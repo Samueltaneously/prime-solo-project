@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
             'Authorization': `${process.env.OPENAI_API_KEY}`
         }, data: {
             "model": "gpt-3.5-turbo",
-            "messages": [{ "role": "user", "content": "Say thid is a test!" }]
+            "messages": [{ "role": "user", "content": "Say this is a test!" }]
         }
     }).then((response) => {
         console.log("response data from dream description post:", response.data);

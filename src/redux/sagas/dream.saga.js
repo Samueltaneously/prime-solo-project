@@ -52,12 +52,21 @@ function* deleteDream(action) {
 function* editDream(action) {
     console.log('payload for edit:', action.payload);
     try {
-        const config = {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true,
-        };
+        // const config = {
+        //     headers: { 'Content-Type': 'application/json' },
+        //     params: {
+        //         dreamID: action.payload.dreamID,
+        //         newDescription: action.payload.newDescription
+        //     },
+        //     withCredentials: true,
+        // };
 
-        yield axios.put(`/api/dream/${action.payload.dreamID}`, action.payload, config);
+        const dreamUpdate = {
+            dreamID: action.payload.dreamId,
+            newDescription: action.payload.newDescription
+        }
+        console.log("dream update:", dreamUpdate);
+        yield axios.put(`/api/dream/${action.payload.dreamId} `, dreamUpdate);
 
     } catch (error) {
         console.log(' Dreams edit request failed', error);

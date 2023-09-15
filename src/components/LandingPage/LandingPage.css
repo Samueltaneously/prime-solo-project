@@ -2,6 +2,11 @@
 Grid
 -------------------------------------------------------------------------------- */
 
+.container {
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
 .grid {
   display: flex;
   flex: 0 1 auto;
@@ -57,6 +62,7 @@ Grid
 .grid-col_8 {
   flex-basis: 66.66666667%;
   max-width: 66.66666667%;
+  color: white;
 }
 
 .grid-col_9 {

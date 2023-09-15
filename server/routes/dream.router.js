@@ -56,8 +56,10 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
 
     if (req.isAuthenticated()) {
+        console.log('req.params', req.params);
+        console.log('req.body', req.body);
 
-        let idToUpdate = req.params.id
+        let idToUpdate = req.body.dreamId
         let NEWdream_description = req.body.newDescription
         let sqlValues = [NEWdream_description, idToUpdate]
 
