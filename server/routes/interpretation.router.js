@@ -20,20 +20,31 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
-    // const { messages } = await
+router.post('/', (req, res) => {
+    console.log('req.body', req.body);
+    const dreamContent = req.body
     axios({
+        method: 'POST',
         url: `https://api.openai.com/v1/chat/completions`,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${process.env.OPENAI_API_KEY}`
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
         }, data: {
             "model": "gpt-3.5-turbo",
-            "messages": [{ "role": "user", "content": "Say this is a test!" }]
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a dream analyzer. Respond with an interpretation of my dream description."
+                },
+                {
+                    "role": "user",
+                    "content": JSON.stringify(dreamContent)
+                }]
         }
     }).then((response) => {
         console.log("response data from dream description post:", response.data);
         res.send(response.data);
+
     }).catch((error) => {
         console.log('POST to chatGPT fail:', error);
         res.sendStatus(500);
