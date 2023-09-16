@@ -242,6 +242,7 @@ function InfoPage() {
                     <CardContent>
                       {editableDescriptions[dream.id] ? (
                         <textarea
+                          style={{ width: '30rem', height: '10rem' }}
                           value={cardContent[dream.id] || ''}
                           onChange={(e) => handleDescriptionChange(dream.id, e)}
                         />
