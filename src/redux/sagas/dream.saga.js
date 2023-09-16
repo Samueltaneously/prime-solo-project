@@ -43,7 +43,7 @@ function* deleteDream(action) {
         };
 
         yield axios.delete(`/api/dream/${action.payload}`, config);
-
+        yield put({ type: 'GET_ALL_DREAMS' });
     } catch (error) {
         console.log(' Dreams delete request failed', error);
     }

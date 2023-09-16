@@ -45,6 +45,7 @@ router.post('/', (req, res) => {
         console.log("response data from dream description post:", response.data);
         res.send(response.data);
 
+
     }).catch((error) => {
         console.log('POST to chatGPT fail:', error);
         res.sendStatus(500);

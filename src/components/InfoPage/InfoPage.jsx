@@ -90,9 +90,15 @@ function InfoPage() {
 
   const handleDelete = (dreamID) => {
     dispatch({
-      type: 'DELETE_DREAM', payload: dreamID
+      type: 'DELETE_DREAM', payload: dreamID,
+      // Below doesn't work, using saga for delete to re 'put' fetch does.
+      // onSuccess: () => {
+      //   // After successful deletion, fetch all dreams again
+      //   dispatch({ type: 'GET_ALL_DREAMS' });
+      // }
+
     })
-  }
+  };
 
   const editDreamDescription = (dreamId, newDescription) => ({
     type: 'EDIT_DREAM_DESCRIPTION',
