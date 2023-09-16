@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import LogOutButton from '../LogOutButton/LogOutButton';
+import DeleteConfirmationModal from './DeleteConfirmation';
 
 // Importing in MUI
 import { styled } from '@mui/material/styles';
@@ -30,6 +31,8 @@ function InfoPage() {
   const [flipped, setFlipped] = useState({});
   const [cardContent, setCardContent] = useState({});
   const [editableDescriptions, setEditableDescriptions] = useState({});
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [dreamIdForDelete, setDreamIdForDelete] = useState(null);
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
@@ -89,15 +92,17 @@ function InfoPage() {
   }
 
   const handleDelete = (dreamID) => {
+    setDreamIdForDelete(dreamID);
+    setDeleteModalOpen(true);
+  };
+  const handleConfirmDelete = () => {
     dispatch({
-      type: 'DELETE_DREAM', payload: dreamID,
-      // Below doesn't work, using saga for delete to re 'put' fetch does.
-      // onSuccess: () => {
-      //   // After successful deletion, fetch all dreams again
-      //   dispatch({ type: 'GET_ALL_DREAMS' });
-      // }
+      type: 'DELETE_DREAM',
+      payload: dreamIdForDelete,
+    });
 
-    })
+    // Close modal
+    setDeleteModalOpen(false);
   };
 
   const editDreamDescription = (dreamId, newDescription) => ({
@@ -292,6 +297,7 @@ function InfoPage() {
         </Box>
 
 
+
         {/*---------- Profile Information Display ----------*/}
         <Box sx={{ display: 'flex' }}>
           <div>
@@ -303,6 +309,14 @@ function InfoPage() {
           </div>
         </Box>
 
+
+
+        {/*---------- Modals ----------*/}
+        <DeleteConfirmationModal
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onConfirm={handleConfirmDelete}
+        />
 
       </Box>
     </main >
