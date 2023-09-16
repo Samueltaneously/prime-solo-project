@@ -157,7 +157,7 @@ function InfoPage() {
 
                 style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
-                {/* Front of card */}
+                {/*---------- Front of dreamcard ----------*/}
                 <Card className="card-front" sx={{ backgroundColor: '#424242fa', color: 'whitesmoke', boxShadow: '2px 2px 10px white' }}>
                   <CardMedia
                     sx={{ height: 256 }}
@@ -169,6 +169,7 @@ function InfoPage() {
                     <Typography gutterBottom variant="h5" component="div"
                       onClick={() => { handleTransform(dream.id) }}>
                       {dream.dream_title}
+                      <Button>Dream Info </Button>
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
@@ -207,19 +208,39 @@ function InfoPage() {
                   </Collapse>
                 </Card>
 
-                {/* Back of card */}
+                {/*---------- Back of dreamcard ----------*/}
                 <Card className="card-back" >
-                  <Card>
-                    <CardContent>
-                      <Typography paragraph>
-                        {dream.dream_interpretation}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                  {/* <Card> */}
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      Interpretation:
+                    </Typography>
+                    {dream.dream_interpretation ? (
+
+                      <div
+                        style={{
+                          border: '2px solid #007bff',
+                          padding: '10px',
+                          borderRadius: '5px', // Rounded border
+                        }}>
+                        <Typography paragraph>
+                          {dream.dream_interpretation}
+                        </Typography>
+                      </div>
+                    ) : (
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button variant="outlined" color="primary">
+                          Generate Interpretation
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                  {/* </Card> */}
                   <CardContent >
                     <Typography gutterBottom variant="h5" component="div"
                       onClick={() => { handleTransform(dream.id) }}>
                       {dream.dream_title}
+                      <Button>Dream Image </Button>
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
@@ -271,7 +292,7 @@ function InfoPage() {
         </Box>
 
 
-        {/* Profile Information Display */}
+        {/*---------- Profile Information Display ----------*/}
         <Box sx={{ display: 'flex' }}>
           <div>
             <Card sx={{ width: 400 }}>
