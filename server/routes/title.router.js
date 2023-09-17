@@ -24,6 +24,31 @@ router.get('/', (req, res) => {
 });
 
 
+router.put('/', (req, res) => {
+    console.log('firstTitleGen value for PUT /  route in TITLE.ROUTER:', req.body);
+    if (req.isAuthenticated()) {
+
+        let firstTitleGen = req.body
+        console.log('firstTitleGen value is', firstTitleGen);
+        let sqlValues = [firstTitleGen]
+
+        let sqlQuery = `
+        UPDATE "dream"
+        SET "dream_title" = $1
+        WHERE "date" = (SELECT MAX(date) FROM "dream");
+         `;
+
+        pool.query(sqlQuery, sqlValues)
+            .then((res) => {
+                console.log('successful update for PUT /api/dream', res);
+                // res.sendStatus(201)
+            }).catch((error) => {
+                console.error('Error PUT /api/dream', error);
+                res.sendStatus(500)
+            })
+    }
+});
+
 router.post('/', (req, res) => {
     console.log('req.body', req.body);
     const dreamContent = req.body
