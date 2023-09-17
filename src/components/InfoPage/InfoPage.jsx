@@ -27,6 +27,7 @@ function InfoPage() {
   const history = useHistory();
   const dreams = useSelector(store => store.allDreamsReducer);
   const user = useSelector(store => store.user);
+
   const [expanded, setExpanded] = useState({});
   const [flipped, setFlipped] = useState({});
   const [cardContent, setCardContent] = useState({});
@@ -39,6 +40,8 @@ function InfoPage() {
   }, []);
 
 
+
+  //  Card expanding logic
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -51,6 +54,7 @@ function InfoPage() {
   }));
 
 
+  // Handles card expanding
   const handleExpandClick = (id) => {
     // setExpanded(prevExpanded => ({ ...prevExpanded, [id]: !prevExpanded[id] }));
     // setExpanded({ [id]: true }); // Expand the clicked card
@@ -68,6 +72,8 @@ function InfoPage() {
 
   };
 
+
+  // Handles card flipping
   const handleTransform = (id) => {
     // Commented out flips as many cards as desired
     // setFlipped(prevFlipped => ({ ...prevFlipped, [id]: !prevFlipped[id] }));
@@ -91,6 +97,8 @@ function InfoPage() {
     });
   }
 
+
+  // Handles deleting of cards
   const handleDelete = (dreamID) => {
     setDreamIdForDelete(dreamID);
     setDeleteModalOpen(true);
@@ -105,11 +113,17 @@ function InfoPage() {
     setDeleteModalOpen(false);
   };
 
-  const editDreamDescription = (dreamId, newDescription) => ({
-    type: 'EDIT_DREAM_DESCRIPTION',
-    payload: { dreamId, newDescription },
-  });
 
+
+  const handleInterpretationGeneration = (dreamID) => {
+    dispatch({
+      type: 'SEND_FOR_INTERPRETATION',
+      payload: dreamID
+    })
+  }
+
+
+  // Handles toggling dream description editing
   const handleEditDescription = (dreamID) => {
     // Toggle edit mode for the description
     setEditableDescriptions(prevEditableDescriptions => ({
@@ -137,6 +151,11 @@ function InfoPage() {
       [id]: false,
     }));
   };
+
+  const editDreamDescription = (dreamId, newDescription) => ({
+    type: 'EDIT_DREAM_DESCRIPTION',
+    payload: { dreamId, newDescription },
+  });
 
 
 
@@ -168,8 +187,7 @@ function InfoPage() {
                     sx={{ height: 256 }}
                     image={dream.dream_image_url}
                     title={dream.dream_title}
-                    onClick={() => history.push(`/details/${dream.id}`)}
-                  />
+                    onClick={() => history.push(`/details/${dream.id}`)} />
                   <CardContent >
                     <Typography gutterBottom variant="h5" component="div"
                       onClick={() => { handleTransform(dream.id) }}>
@@ -197,8 +215,7 @@ function InfoPage() {
                         }));
                       }}
                       aria-expanded={expanded[dream.id]}
-                      aria-label="show more"
-                    >
+                      aria-label="show more">
                       <ExpandMoreIcon />
                     </ExpandMore>
 
@@ -232,9 +249,11 @@ function InfoPage() {
                           {dream.dream_interpretation}
                         </Typography>
                       </div>
+
                     ) : (
+
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button variant="outlined" color="primary">
+                        <Button variant="outlined" color="primary" onClick={() => { handleInterpretationGeneration(dream.id) }}>
                           Generate Interpretation
                         </Button>
                       </div>
@@ -264,8 +283,7 @@ function InfoPage() {
                         }));
                       }}
                       aria-expanded={expanded[dream.id]}
-                      aria-label="show more"
-                    >
+                      aria-label="show more">
                       <ExpandMoreIcon />
                     </ExpandMore>
 
@@ -276,9 +294,10 @@ function InfoPage() {
                         <textarea
                           style={{ width: '30rem', height: '10rem' }}
                           value={cardContent[dream.id] || ''}
-                          onChange={(e) => handleDescriptionChange(dream.id, e)}
-                        />
+                          onChange={(e) => handleDescriptionChange(dream.id, e)} />
+
                       ) : (
+
                         <Typography paragraph>{dream.dream_description}</Typography>
                       )}
                       {editableDescriptions[dream.id] && (
@@ -315,8 +334,7 @@ function InfoPage() {
         <DeleteConfirmationModal
           open={deleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}
-          onConfirm={handleConfirmDelete}
-        />
+          onConfirm={handleConfirmDelete} />
 
       </Box>
     </main >

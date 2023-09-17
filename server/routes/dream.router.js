@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 
     if (req.isAuthenticated()) {
         const params = req.user.id;
-        const query = `SELECT * FROM "dream" WHERE "user_id" = $1 ORDER BY "date" DESC `;
+        const query = `SELECT * FROM "dream" WHERE "user_id" = $1 ORDER BY "date" DESC; `;
         pool.query(query, [params])
             .then(result => {
                 res.send(result.rows);
@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
     }
 });
 
+
 // POST dream from UserPage
 router.post('/', (req, res) => {
 
@@ -26,7 +27,7 @@ router.post('/', (req, res) => {
         const dream_description = req.body.dream_description;
         const user_id = req.user.id;
         const queryText = `INSERT INTO "dream" (user_id, dream_description)
-        VALUES ($1, $2)`;
+        VALUES ($1, $2);`;
         pool
             .query(queryText, [user_id, dream_description])
             .then(() => res.sendStatus(201))
@@ -42,7 +43,7 @@ router.delete('/:id', (req, res) => {
 
     if (req.isAuthenticated()) {
         pool
-            .query(`DELETE FROM "dream" WHERE id=$1`, [req.params.id])
+            .query(`DELETE FROM "dream" WHERE id=$1;`, [req.params.id])
             .then((result) => {
                 res.sendStatus(200);
             }).catch((error) => {
@@ -56,8 +57,6 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
 
     if (req.isAuthenticated()) {
-        console.log('req.params', req.params);
-        console.log('req.body', req.body);
 
         let idToUpdate = req.body.dreamId
         let NEWdream_description = req.body.newDescription

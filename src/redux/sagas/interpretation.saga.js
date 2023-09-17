@@ -3,26 +3,46 @@ import axios from 'axios';
 
 function* sendDreamForInterpretation(action) {
     console.log('payload to interpretation router', action.payload);
-    const dream_description = action.payload;
+    const dreamID = action.payload;
     try {
 
-        // const config = {
-        //     headers: { 'Content-Type': 'application/json' },
-        //     withCredentials: true,
-        // };
-
-        // send the action.payload as the body
-        // the config includes credentials which
-        // allow the server session to recognize the user
-        const response = yield axios.post('/api/interpretation', dream_description,);
+        const dreamData = yield axios.get(`api/dream/${dreamID}`);
+        const dreamDesc = yield dreamData.data[0].dream_description;
+        const response = yield axios.post('/api/interpretation', dreamDesc,);
         console.log('chatGPT response', response);
     } catch (error) {
         console.log('Error with sending for interpretation:', error);
     }
 }
 
+function* sendDreamForTitle(action) {
+    try {
+
+        const dreamDesc = action.payload;
+        const response = yield axios.post('/api/title', dreamDesc,);
+        yield axios.post('/api/dream/title', response.data,);
+        console.log('chatGPT response', response);
+    } catch (error) {
+        console.log('Error with sending for titling:', error);
+    }
+}
+
+// function* sendDreamForTitle() {
+//     try {
+
+//         const dreamData = yield axios.get(`api/title`);
+//         const dreamDesc = yield dreamData.data[0].dream_description;
+//         const response = yield axios.post('/api/title', dreamDesc,);
+//         console.log('chatGPT response', response);
+//     } catch (error) {
+//         console.log('Error with sending for titling:', error);
+//     }
+// }
+
 function* interpretationSaga() {
     yield takeLatest('SEND_FOR_INTERPRETATION', sendDreamForInterpretation);
+    yield takeLatest('SEND_FOR_TITLE', sendDreamForTitle);
+
 
 }
 

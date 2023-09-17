@@ -3,17 +3,25 @@ const pool = require('../modules/pool');
 require('dotenv').config();
 const axios = require('axios');
 
-//importing in openAI
-const openAI = require('openai')
-// const configuration = new Configuration({
-//     apiKey: process.env.OPENAI_API_KEY,
-// });
-// const openai = new OpenAIApi(configuration);
-// const response = await openai.listEngines();
 
 const router = express.Router();
 
 
+// GET most recent dream for title
+router.get('/', (req, res) => {
+
+    if (req.isAuthenticated()) {
+        const query = `SELECT * FROM "dream" ORDER BY "date" DESC LIMIT 1; `;
+        pool.query(query)
+            .then(result => {
+                res.send(result.rows);
+            })
+            .catch(err => {
+                console.log('ERROR: Get all dreams failed', err);
+                res.sendStatus(500)
+            })
+    }
+});
 
 
 router.post('/', (req, res) => {
@@ -30,7 +38,7 @@ router.post('/', (req, res) => {
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a dream analyzer. Respond with an interpretation of my dream description."
+                    "content": "You are a dream analyzer. Respond with a brief title for this dream the user had."
                 },
                 {
                     "role": "user",
@@ -47,5 +55,6 @@ router.post('/', (req, res) => {
         res.sendStatus(500);
     })
 });
+
 
 module.exports = router;

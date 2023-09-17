@@ -38,7 +38,7 @@ function UserPage() {
       payload: newDream
     })
     dispatch({
-      type: 'SEND_FOR_INTERPRETATION',
+      type: 'SEND_FOR_TITLE',
       payload: dream_description
     })
     history.push('/info')
@@ -126,8 +126,7 @@ function UserPage() {
             name="dreamType"
             value={dreamType}
             onChange={handleDreamTypeChange}
-            style={buttonStyle}
-          >
+            style={buttonStyle}>
             <FormControlLabel
               value="good"
               control={<Radio style={{ color: 'white' }} />}
