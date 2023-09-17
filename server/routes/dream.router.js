@@ -80,4 +80,30 @@ router.put('/:id', (req, res) => {
 });
 
 
+router.put('/title', (req, res) => {
+
+    if (req.isAuthenticated()) {
+
+        let firstTitleGen = req.body.firstTitleGen
+        console.log('firstTitleGen value is', firstTitleGen);
+        let sqlValues = [firstTitleGen]
+
+        let sqlQuery = `
+        UPDATE "dream"
+        SET "dream_title" = '$1'
+        WHERE "date" = (SELECT MAX(date) FROM "dream");
+         `;
+
+        pool.query(sqlQuery, sqlValues)
+            .then((res) => {
+                console.log('successful update for PUT /api/dream', res);
+                res.sendStatus(201)
+            }).catch((error) => {
+                console.error('Error PUT /api/dream', error);
+                res.sendStatus(500)
+            })
+    }
+});
+
+
 module.exports = router;

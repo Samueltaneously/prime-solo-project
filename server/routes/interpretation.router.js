@@ -14,7 +14,21 @@ const openAI = require('openai')
 const router = express.Router();
 
 
+router.get('/:id', (req, res) => {
 
+    if (req.isAuthenticated()) {
+        const params = req.params.id;
+        const query = `SELECT * FROM "dream" WHERE "id" = $1; `;
+        pool.query(query, [params])
+            .then(result => {
+                res.send(result.rows);
+            })
+            .catch(err => {
+                console.log('ERROR: Get ONE dream failed', err);
+                res.sendStatus(500)
+            })
+    }
+});
 
 router.post('/', (req, res) => {
     console.log('req.body', req.body);

@@ -6,7 +6,7 @@ function* sendDreamForInterpretation(action) {
     const dreamID = action.payload;
     try {
 
-        const dreamData = yield axios.get(`api/dream/${dreamID}`);
+        const dreamData = yield axios.get(`api/interpretation/${dreamID}`);
         const dreamDesc = yield dreamData.data[0].dream_description;
         const response = yield axios.post('/api/interpretation', dreamDesc,);
         console.log('chatGPT response', response);
@@ -19,9 +19,10 @@ function* sendDreamForTitle(action) {
     try {
 
         const dreamDesc = action.payload;
-        const response = yield axios.post('/api/title', dreamDesc,);
-        yield axios.post('/api/dream/title', response.data,);
+        // const response = yield axios.post('/api/title', dreamDesc,);
         console.log('chatGPT response', response);
+        const firstTitleGen = yield response.data.choices[0].message.content;
+        yield axios.put('/api/dream/title', firstTitleGen);
     } catch (error) {
         console.log('Error with sending for titling:', error);
     }
