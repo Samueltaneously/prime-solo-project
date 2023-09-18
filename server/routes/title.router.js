@@ -28,7 +28,7 @@ router.put('/', (req, res) => {
     console.log('firstTitleGen value for PUT /  route in TITLE.ROUTER:', req.body);
     if (req.isAuthenticated()) {
 
-        let firstTitleGen = req.body
+        let firstTitleGen = req.body.firstTitleGen
         console.log('firstTitleGen value is', firstTitleGen);
         let sqlValues = [firstTitleGen]
 
