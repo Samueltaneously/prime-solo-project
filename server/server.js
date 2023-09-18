@@ -11,6 +11,7 @@ const userRouter = require('./routes/user.router');
 const dreamRouter = require('./routes/dream.router');
 const interpretationRouter = require('./routes/interpretation.router');
 const titleRouter = require('./routes/title.router')
+const dreamImageRouter = require('./routes/dreamimage.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use('/api/user', userRouter);
 app.use('/api/dream', dreamRouter);
 app.use('/api/interpretation', interpretationRouter);
 app.use('/api/title', titleRouter);
+app.use('/api/image', dreamImageRouter);
 
 
 // Serve static files

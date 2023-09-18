@@ -30,6 +30,31 @@ router.get('/:id', (req, res) => {
     }
 });
 
+router.put('/:id', (req, res) => {
+    console.log(' value for PUT /  route in interpretation.ROUTER:', req.body);
+    if (req.isAuthenticated()) {
+        const params = req.params.id;
+        let dreamInterpretation = req.body.dreamInterpretation
+        console.log('dreamInterpretation value is', dreamInterpretation);
+        let sqlValues = [dreamInterpretation, params]
+
+        let sqlQuery = `
+        UPDATE "dream"
+        SET "dream_interpretation" = $1
+        WHERE "id" = $2;
+         `;
+
+        pool.query(sqlQuery, sqlValues)
+            .then((res) => {
+                console.log('successful update for PUT /api/dream', res);
+                // res.sendStatus(201)
+            }).catch((error) => {
+                console.error('Error PUT /api/dream', error);
+                res.sendStatus(500)
+            })
+    }
+});
+
 router.post('/', (req, res) => {
     console.log('req.body', req.body);
     const dreamContent = req.body

@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     }
 });
 
-
+//  Put first title generation
 router.put('/', (req, res) => {
     console.log('firstTitleGen value for PUT /  route in TITLE.ROUTER:', req.body);
     if (req.isAuthenticated()) {

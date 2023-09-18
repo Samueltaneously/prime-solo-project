@@ -38,7 +38,7 @@ function InfoPage() {
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_DREAMS' });
-  }, []);
+  }, [dreams]);
 
 
 
@@ -115,6 +115,13 @@ function InfoPage() {
   };
 
 
+  const handleImageGeneration = (dreamID) => {
+    dispatch({
+      type: 'SEND_FOR_IMAGE',
+      payload: dreamID
+    })
+  }
+
 
   const handleInterpretationGeneration = (dreamID) => {
     dispatch({
@@ -178,7 +185,8 @@ function InfoPage() {
             {dreams.map((dream) => {
               const dreamDate = new Date(dream.timestamp);
               // Formatting date into MM/DD/YYYY format
-              const formattedDate = format(dreamDate, 'MM/dd/yyyy');
+              const formattedDate = format(dreamDate, 'MM/dd/yyyy hh:mm a');
+              const noImage = !dream.dream_image_url;
               return (
 
                 <div key={dream.id} className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
@@ -187,11 +195,19 @@ function InfoPage() {
 
                   {/*---------- Front of dreamcard ----------*/}
                   <Card className="card-front" sx={{ backgroundColor: '#424242fa', color: 'whitesmoke', boxShadow: '2px 2px 10px white' }}>
-                    <CardMedia
-                      sx={{ height: 256 }}
-                      image={dream.dream_image_url}
-                      title={dream.dream_title}
-                      onClick={() => history.push(`/details/${dream.id}`)} />
+                    {noImage ? (
+                      <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '156px' }}>
+                        <Button variant="outlined" color="primary" onClick={() => { handleImageGeneration(dream.id) }}>
+                          View Dream Image
+                        </Button>
+                      </CardContent>
+                    ) : (
+                      <CardMedia
+                        sx={{ height: 256 }}
+                        image={dream.dream_image_url}
+                        title={dream.dream_title}
+                      />
+                    )}
                     <CardContent >
                       <Typography gutterBottom variant="h5" component="div"
                         onClick={() => { handleTransform(dream.id) }}>
