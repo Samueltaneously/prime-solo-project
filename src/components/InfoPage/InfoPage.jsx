@@ -170,19 +170,27 @@ function InfoPage() {
 
   return (
     <main>
+
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '8vh',
+        color: 'whitesmoke',
+      }}>
+        <h1>Dream List</h1>
+      </div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
 
 
-        <h1>Dream List</h1>
-
-
         {/* Grid for displaying all dreams*/}
-        <Box className="scroll-container" sx={{ height: '1000px', overflowY: 'auto' }}>
+        <Box className="scroll-container" sx={{ marginLeft: '40px', marginTop: '0px', height: '1000px', overflowY: 'auto' }}>
           <Grid container
             xs={12}
             spacing={3}
             columnGap={6}
-            rowGap={10}>
+            rowGap={11}>
             {dreams.map((dream) => {
               const dreamDate = new Date(dream.timestamp);
               // Formatting date into MM/DD/YYYY format
@@ -229,17 +237,16 @@ function InfoPage() {
                       <Typography paragraph>{formattedDate}</Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                      <IconButton aria-label="add to favorites">
+                      <IconButton aria-label="add to favorites" sx={{ color: '#186BCC', }}>
                         <FavoriteIcon />
                       </IconButton>
-                      <IconButton aria-label="share">
+                      <IconButton aria-label="share" sx={{ color: '#186BCC', }}>
                         <ShareIcon />
                       </IconButton>
-                      <IconButton onClick={() => { handleDelete(dream.id) }}>
+                      <IconButton onClick={() => { handleDelete(dream.id) }} sx={{ color: '#186BCC', }}>
                         <DeleteIcon />
                       </IconButton>
                       <ExpandMore
-                        sx={{ color: '#186BCC' }}
                         expand={expanded[dream.id]}
                         onClick={() => {
                           handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
@@ -249,7 +256,7 @@ function InfoPage() {
                         }}
                         aria-expanded={expanded[dream.id]}
                         aria-label="show more">
-                        <ExpandMoreIcon />
+                        <ExpandMoreIcon sx={{ color: 'whitesmoke', }} />
                       </ExpandMore>
 
                     </CardActions>
@@ -272,7 +279,7 @@ function InfoPage() {
                       boxShadow: '2px 2px 10px white',
                     }}>
                     <CardContent>
-                      <Typography variant="h6" gutterBottom>
+                      <Typography style={{ marginTop: '5px' }} variant="h6" gutterBottom>
                         Interpretation:
                       </Typography>
                       {dream.dream_interpretation ? (
@@ -281,7 +288,7 @@ function InfoPage() {
                           style={{
                             border: '2px solid #007bff',
                             padding: '10px',
-                            borderRadius: '5px', // Rounded border
+                            borderRadius: '5px',
                           }}>
                           <Typography paragraph>
                             {dream.dream_interpretation}
@@ -291,13 +298,13 @@ function InfoPage() {
                       ) : (
 
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                          <Button variant="outlined" color="primary" onClick={() => { handleInterpretationGeneration(dream.id) }}>
+                          <Button style={{ marginTop: '5px' }} variant="outlined" color="primary" onClick={() => { handleInterpretationGeneration(dream.id) }}>
                             Generate Interpretation
                           </Button>
                         </div>
                       )}
                     </CardContent>
-                    \                    <CardContent >
+                    <CardContent >
                       <Typography gutterBottom variant="h5" component="div"
                         onClick={() => { handleTransform(dream.id) }}>
                         {dream.dream_title}
@@ -306,13 +313,13 @@ function InfoPage() {
                       <Typography paragraph>{formattedDate}</Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                      <IconButton aria-label="add to favorites">
+                      <IconButton aria-label="add to favorites" sx={{ color: '#186BCC', }}>
                         <FavoriteIcon />
                       </IconButton>
-                      <IconButton aria-label="share">
+                      <IconButton aria-label="share" sx={{ color: '#186BCC', }}>
                         <ShareIcon />
                       </IconButton>
-                      <IconButton onClick={() => { handleDelete(dream.id) }}>
+                      <IconButton onClick={() => { handleDelete(dream.id) }} sx={{ color: '#186BCC', }}>
                         <DeleteIcon />
                       </IconButton>
                       <ExpandMore
@@ -325,7 +332,7 @@ function InfoPage() {
                         }}
                         aria-expanded={expanded[dream.id]}
                         aria-label="show more">
-                        <ExpandMoreIcon />
+                        <ExpandMoreIcon sx={{ color: 'whitesmoke', }} />
                       </ExpandMore>
 
                     </CardActions>
