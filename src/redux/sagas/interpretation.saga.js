@@ -29,21 +29,6 @@ function* sendDreamForTitle(action) {
     }
 }
 
-// function* sendDreamForTitle(action) {
-//     try {
-
-//         const dreamDesc = action.payload;
-//         const response = yield axios.post('/api/title', dreamDesc);
-//         console.log('chatGPT response', response);
-//         const firstTitleGenOBJECT = yield JSON.parse(response.data.choices[0].message.content);
-//         const cleanedFirstTitleGenOBJECT = yield firstTitleGenOBJECT.replace(/\\"/g, '"');
-//         const firstTitleGen = yield Object.keys(cleanedFirstTitleGenOBJECT[0]);
-//         yield axios.put('/api/title', firstTitleGen);
-//     } catch (error) {
-//         console.log('Error with sending for titling:', error);
-//     }
-// }
-
 // function* sendDreamForTitle() {
 //     try {
 

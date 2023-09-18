@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 
     if (req.isAuthenticated()) {
         const params = req.user.id;
-        const query = `SELECT * FROM "dream" WHERE "user_id" = $1 ORDER BY "date" DESC; `;
+        const query = `SELECT * FROM "dream" WHERE "user_id" = $1 ORDER BY "timestamp" DESC; `;
         pool.query(query, [params])
             .then(result => {
                 res.send(result.rows);
@@ -79,31 +79,31 @@ router.put('/:id', (req, res) => {
     }
 });
 
+// Route not working, using title router instead
+// router.put('/firsttitle', (req, res) => {
+//     console.log('firstTitleGen value for /firsttitle route:', req.body);
+//     if (req.isAuthenticated()) {
 
-router.put('/firsttitle', (req, res) => {
-    console.log('firstTitleGen value for /firsttitle route:', req.body);
-    if (req.isAuthenticated()) {
+//         let firstTitleGen = req.body.firstTitleGen
+//         console.log('firstTitleGen value is', firstTitleGen);
+//         let sqlValues = [firstTitleGen]
 
-        let firstTitleGen = req.body.firstTitleGen
-        console.log('firstTitleGen value is', firstTitleGen);
-        let sqlValues = [firstTitleGen]
+//         let sqlQuery = `
+//         UPDATE "dream"
+//         SET "dream_title" = $1
+//         WHERE "date" = (SELECT MAX(timestamp) FROM "dream");
+//          `;
 
-        let sqlQuery = `
-        UPDATE "dream"
-        SET "dream_title" = $1
-        WHERE "date" = (SELECT MAX(date) FROM "dream");
-         `;
-
-        pool.query(sqlQuery, sqlValues)
-            .then((res) => {
-                console.log('successful update for PUT /api/dream', res);
-                res.sendStatus(201)
-            }).catch((error) => {
-                console.error('Error PUT /api/dream', error);
-                res.sendStatus(500)
-            })
-    }
-});
+//         pool.query(sqlQuery, sqlValues)
+//             .then((res) => {
+//                 console.log('successful update for PUT /api/dream', res);
+//                 res.sendStatus(201)
+//             }).catch((error) => {
+//                 console.error('Error PUT /api/dream', error);
+//                 res.sendStatus(500)
+//             })
+//     }
+// });
 
 
 module.exports = router;

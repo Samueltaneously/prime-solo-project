@@ -18,8 +18,8 @@ CREATE TABLE "dream" (
   "user_id" INTEGER NOT NULL,
   "dream_description" TEXT NOT NULL,
   "dream_interpretation" TEXT,
-  "dream_title" VARCHAR,
-  "date" DATE,
+  "dream_title" VARCHAR(90),
+  timestamp timestamp default current_timestamp,
   "dream_image_url" TEXT,
   FOREIGN KEY ("user_id") REFERENCES "user" ("id")
 );
@@ -64,5 +64,22 @@ VALUES
   (1, 'I had a dream about flying on a magic carpet.', 'This dream felt like a journey through Arabian Nights.', 'Magic Carpet Ride', '2023-09-18', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.vSDHynUCdpiw3Bl4o-X8hAHaE8%26pid%3DApi&f=1&ipt=a644c51587c9f03f5fdab729a6f04edd990f1864bd43bcd9b075705374a26ef0&ipo=images'),
 
   (1, 'My dream was about exploring an ancient pyramid.', 'I felt like an adventurer in Egypt.', 'Pyramid Adventure', '2023-09-19', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.PNAhvQce_be9LtYZZ2GIegHaEK%26pid%3DApi&f=1&ipt=d2eaadf01990e4d3c6b7f5417c42c71a014a18aa7c065ba7d6d438c5dd9c4589&ipo=images');
+
+
+-- Better Dummy data
+
+INSERT INTO "dream" ("user_id", "dream_description")
+VALUES
+  (1, 'Had a dream about flying in the sky.'),
+  (1, 'Dreamed of a tropical beach vacation.'),
+  (1, 'Dreamt of meeting my childhood friends.'),
+  (1, 'Had a nightmare about being chased by a monster.'),
+  (1, 'Dreamed of a world without any worries.'),
+  (1, 'Dreamt of becoming a famous musician.'),
+  (1, 'Had a dream about exploring space.'),
+  (1, 'Dreamed of a grand feast with family and friends.'),
+  (1, 'Dreamt of winning the lottery.'),
+  (1, 'Had a dream about traveling the world.');
+
 
   -- END sql

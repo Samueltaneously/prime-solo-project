@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
 
     if (req.isAuthenticated()) {
-        const query = `SELECT * FROM "dream" ORDER BY "date" DESC LIMIT 1; `;
+        const query = `SELECT * FROM "dream" ORDER BY "timestamp" DESC LIMIT 1; `;
         pool.query(query)
             .then(result => {
                 res.send(result.rows);
@@ -35,7 +35,7 @@ router.put('/', (req, res) => {
         let sqlQuery = `
         UPDATE "dream"
         SET "dream_title" = $1
-        WHERE "date" = (SELECT MAX(date) FROM "dream");
+        WHERE "timestamp" = (SELECT MAX(timestamp) FROM "dream");
          `;
 
         pool.query(sqlQuery, sqlValues)

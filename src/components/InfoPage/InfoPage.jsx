@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import LogOutButton from '../LogOutButton/LogOutButton';
 import DeleteConfirmationModal from './DeleteConfirmation';
+import { format } from 'date-fns';
 
 // Importing in MUI
 import { styled } from '@mui/material/styles';
@@ -174,144 +175,149 @@ function InfoPage() {
             spacing={3}
             columnGap={4}
             rowGap={5}>
-            {dreams.map(dream => (
+            {dreams.map((dream) => {
+              const dreamDate = new Date(dream.timestamp);
+              // Formatting date into MM/DD/YYYY format
+              const formattedDate = format(dreamDate, 'MM/dd/yyyy');
+              return (
 
+                <div key={dream.id} className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
 
-              <div key={dream.id} className={`dreamcard ${expanded[dream.id] ? 'expanded' : ''}`}
+                  style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
-                style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
-
-                {/*---------- Front of dreamcard ----------*/}
-                <Card className="card-front" sx={{ backgroundColor: '#424242fa', color: 'whitesmoke', boxShadow: '2px 2px 10px white' }}>
-                  <CardMedia
-                    sx={{ height: 256 }}
-                    image={dream.dream_image_url}
-                    title={dream.dream_title}
-                    onClick={() => history.push(`/details/${dream.id}`)} />
-                  <CardContent >
-                    <Typography gutterBottom variant="h5" component="div"
-                      onClick={() => { handleTransform(dream.id) }}>
-                      {dream.dream_title}
-                      <Button>Dream Info </Button>
-                    </Typography>
-                  </CardContent>
-                  <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton onClick={() => { handleDelete(dream.id) }}>
-                      <DeleteIcon />
-                    </IconButton>
-
-                    <ExpandMore
-                      expand={expanded[dream.id]}
-                      onClick={() => {
-                        handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
-                          ...prevCardContent,
-                          [dream.id]: dream.dream_description,
-                        }));
-                      }}
-                      aria-expanded={expanded[dream.id]}
-                      aria-label="show more">
-                      <ExpandMoreIcon />
-                    </ExpandMore>
-
-                  </CardActions>
-                  <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>{dream.date}</Typography>
-                      <Typography paragraph>
-                        {dream.dream_description}
+                  {/*---------- Front of dreamcard ----------*/}
+                  <Card className="card-front" sx={{ backgroundColor: '#424242fa', color: 'whitesmoke', boxShadow: '2px 2px 10px white' }}>
+                    <CardMedia
+                      sx={{ height: 256 }}
+                      image={dream.dream_image_url}
+                      title={dream.dream_title}
+                      onClick={() => history.push(`/details/${dream.id}`)} />
+                    <CardContent >
+                      <Typography gutterBottom variant="h5" component="div"
+                        onClick={() => { handleTransform(dream.id) }}>
+                        {dream.dream_title}
+                        <Button>Dream Info </Button>
                       </Typography>
+                      <Typography paragraph>{formattedDate}</Typography>
                     </CardContent>
-                  </Collapse>
-                </Card>
+                    <CardActions disableSpacing>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                      <IconButton onClick={() => { handleDelete(dream.id) }}>
+                        <DeleteIcon />
+                      </IconButton>
+                      <ExpandMore
+                        expand={expanded[dream.id]}
+                        onClick={() => {
+                          handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
+                            ...prevCardContent,
+                            [dream.id]: dream.dream_description,
+                          }));
+                        }}
+                        aria-expanded={expanded[dream.id]}
+                        aria-label="show more">
+                        <ExpandMoreIcon />
+                      </ExpandMore>
 
-                {/*---------- Back of dreamcard ----------*/}
-                <Card className="card-back" >
-                  {/* <Card> */}
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      Interpretation:
-                    </Typography>
-                    {dream.dream_interpretation ? (
+                    </CardActions>
+                    <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                      <CardContent>
 
-                      <div
-                        style={{
-                          border: '2px solid #007bff',
-                          padding: '10px',
-                          borderRadius: '5px', // Rounded border
-                        }}>
                         <Typography paragraph>
-                          {dream.dream_interpretation}
+                          {dream.dream_description}
                         </Typography>
-                      </div>
+                      </CardContent>
+                    </Collapse>
+                  </Card>
 
-                    ) : (
-
-                      <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button variant="outlined" color="primary" onClick={() => { handleInterpretationGeneration(dream.id) }}>
-                          Generate Interpretation
-                        </Button>
-                      </div>
-                    )}
-                  </CardContent>
-                  {/* </Card> */}
-                  <CardContent >
-                    <Typography gutterBottom variant="h5" component="div"
-                      onClick={() => { handleTransform(dream.id) }}>
-                      {dream.dream_title}
-                      <Button>Dream Image </Button>
-                    </Typography>
-                  </CardContent>
-                  <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <ExpandMore
-                      expand={expanded[dream.id]}
-                      onClick={() => {
-                        handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
-                          ...prevCardContent,
-                          [dream.id]: dream.dream_description,
-                        }));
-                      }}
-                      aria-expanded={expanded[dream.id]}
-                      aria-label="show more">
-                      <ExpandMoreIcon />
-                    </ExpandMore>
-
-                  </CardActions>
-                  <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                  {/*---------- Back of dreamcard ----------*/}
+                  <Card className="card-back" >
+                    {/* <Card> */}
                     <CardContent>
-                      {editableDescriptions[dream.id] ? (
-                        <textarea
-                          style={{ width: '30rem', height: '10rem' }}
-                          value={cardContent[dream.id] || ''}
-                          onChange={(e) => handleDescriptionChange(dream.id, e)} />
+                      <Typography variant="h6" gutterBottom>
+                        Interpretation:
+                      </Typography>
+                      {dream.dream_interpretation ? (
+
+                        <div
+                          style={{
+                            border: '2px solid #007bff',
+                            padding: '10px',
+                            borderRadius: '5px', // Rounded border
+                          }}>
+                          <Typography paragraph>
+                            {dream.dream_interpretation}
+                          </Typography>
+                        </div>
 
                       ) : (
 
-                        <Typography paragraph>{dream.dream_description}</Typography>
-                      )}
-                      {editableDescriptions[dream.id] && (
-                        <Button onClick={() => handleSaveDescription(dream.id)}>Save Description</Button>
-                      )}
-                      {!editableDescriptions[dream.id] && (
-                        <Button onClick={() => handleEditDescription(dream.id)}>Edit Description</Button>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                          <Button variant="outlined" color="primary" onClick={() => { handleInterpretationGeneration(dream.id) }}>
+                            Generate Interpretation
+                          </Button>
+                        </div>
                       )}
                     </CardContent>
-                  </Collapse>
-                </Card>
-              </div>
+                    {/* </Card> */}
+                    <CardContent >
+                      <Typography gutterBottom variant="h5" component="div"
+                        onClick={() => { handleTransform(dream.id) }}>
+                        {dream.dream_title}
+                        <Button>Dream Image </Button>
+                      </Typography>
+                      <Typography paragraph>{formattedDate}</Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                      <ExpandMore
+                        expand={expanded[dream.id]}
+                        onClick={() => {
+                          handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
+                            ...prevCardContent,
+                            [dream.id]: dream.dream_description,
+                          }));
+                        }}
+                        aria-expanded={expanded[dream.id]}
+                        aria-label="show more">
+                        <ExpandMoreIcon />
+                      </ExpandMore>
 
-            ))}
+                    </CardActions>
+                    <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
+                      <CardContent>
+                        {editableDescriptions[dream.id] ? (
+                          <textarea
+                            style={{ width: '30rem', height: '10rem' }}
+                            value={cardContent[dream.id] || ''}
+                            onChange={(e) => handleDescriptionChange(dream.id, e)} />
+
+                        ) : (
+
+                          <Typography paragraph>{dream.dream_description}</Typography>
+                        )}
+                        {editableDescriptions[dream.id] && (
+                          <Button onClick={() => handleSaveDescription(dream.id)}>Save Description</Button>
+                        )}
+                        {!editableDescriptions[dream.id] && (
+                          <Button onClick={() => handleEditDescription(dream.id)}>Edit Description</Button>
+                        )}
+                      </CardContent>
+                    </Collapse>
+                  </Card>
+                </div>
+
+              )
+            })}
           </Grid>
         </Box>
 
