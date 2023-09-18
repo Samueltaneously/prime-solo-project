@@ -22,6 +22,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardActions from '@mui/material/CardActions';
 import { Button } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
 function InfoPage() {
   const dispatch = useDispatch();
@@ -180,8 +181,8 @@ function InfoPage() {
           <Grid container
             xs={12}
             spacing={3}
-            columnGap={4}
-            rowGap={5}>
+            columnGap={6}
+            rowGap={10}>
             {dreams.map((dream) => {
               const dreamDate = new Date(dream.timestamp);
               // Formatting date into MM/DD/YYYY format
@@ -194,9 +195,20 @@ function InfoPage() {
                   style={{ transform: `${flipped[dream.id] ? 'rotateY(180deg)' : 'rotateY(0deg)'}` }}>
 
                   {/*---------- Front of dreamcard ----------*/}
-                  <Card className="card-front" sx={{ backgroundColor: '#424242fa', color: 'whitesmoke', boxShadow: '2px 2px 10px white' }}>
+                  <Card className="card-front"
+                    sx={{
+                      backgroundColor: '#424242fa',
+                      color: 'whitesmoke',
+                      boxShadow: '2px 2px 10px white',
+                    }}>
                     {noImage ? (
-                      <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '156px' }}>
+                      <CardContent
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '156px'
+                        }}>
                         <Button variant="outlined" color="primary" onClick={() => { handleImageGeneration(dream.id) }}>
                           View Dream Image
                         </Button>
@@ -227,6 +239,7 @@ function InfoPage() {
                         <DeleteIcon />
                       </IconButton>
                       <ExpandMore
+                        sx={{ color: '#186BCC' }}
                         expand={expanded[dream.id]}
                         onClick={() => {
                           handleExpandClick(dream.id); setCardContent((prevCardContent) => ({
@@ -240,6 +253,7 @@ function InfoPage() {
                       </ExpandMore>
 
                     </CardActions>
+
                     <Collapse in={expanded[dream.id]} timeout="auto" unmountOnExit>
                       <CardContent>
 
@@ -251,8 +265,12 @@ function InfoPage() {
                   </Card>
 
                   {/*---------- Back of dreamcard ----------*/}
-                  <Card className="card-back" >
-                    {/* <Card> */}
+                  <Card className="card-back"
+                    sx={{
+                      backgroundColor: '#424242fa',
+                      color: 'whitesmoke',
+                      boxShadow: '2px 2px 10px white',
+                    }}>
                     <CardContent>
                       <Typography variant="h6" gutterBottom>
                         Interpretation:
@@ -279,8 +297,7 @@ function InfoPage() {
                         </div>
                       )}
                     </CardContent>
-                    {/* </Card> */}
-                    <CardContent >
+                    \                    <CardContent >
                       <Typography gutterBottom variant="h5" component="div"
                         onClick={() => { handleTransform(dream.id) }}>
                         {dream.dream_title}
@@ -294,6 +311,9 @@ function InfoPage() {
                       </IconButton>
                       <IconButton aria-label="share">
                         <ShareIcon />
+                      </IconButton>
+                      <IconButton onClick={() => { handleDelete(dream.id) }}>
+                        <DeleteIcon />
                       </IconButton>
                       <ExpandMore
                         expand={expanded[dream.id]}
@@ -342,10 +362,36 @@ function InfoPage() {
         {/*---------- Profile Information Display ----------*/}
         <Box sx={{ display: 'flex' }}>
           <div>
-            <Card sx={{ width: 400 }}>
-              <h3>Welcome, {user.username}!</h3>
-              <p>Your ID is: {user.id}</p>
-              <LogOutButton className="btn" />
+            <Card
+              sx={{
+                width: 450,
+                backgroundColor: '#424242fa',
+                color: 'whitesmoke', marginTop: '20px',
+                marginRight: '20px',
+                border: '2px solid #007bff',
+                borderRadius: '10px',
+                boxShadow: '2px 2px 10px white',
+              }}>
+              <CardContent>
+                {/* User Avatar */}
+                <Avatar alt={user.username} src={user.profile_pic_url}
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    backgroundColor: '#fff',
+                    color: '#007bff'
+                  }}>
+                  {user.username[0].toUpperCase()}
+                </Avatar>
+
+                {/* User Info */}
+                <Typography variant="h5" component="div" sx={{ marginTop: '10px' }}>
+                  {user.username}
+                </Typography>
+                <Typography variant="body2" color="whitesmoke">
+                  User ID: {user.id}
+                </Typography>
+              </CardContent>
             </Card>
           </div>
         </Box>
